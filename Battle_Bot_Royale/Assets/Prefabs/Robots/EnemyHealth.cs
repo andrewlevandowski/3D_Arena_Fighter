@@ -1,0 +1,68 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+//outline taken from: "https://unity3d.com/learn/tutorials/projects/survival-shooter/harming-enemies?playlist=17144"
+public class EnemyHealth : MonoBehaviour {
+
+    public int startingHealth = 100;
+    public int currentHealth;
+    public int scoreValue = 10;                 
+    public AudioClip deathClip;
+
+    AudioSource enemyAudio;
+    MeshCollider meshCollider;
+    ParticleSystem hitParticles;        //if we want to make an animation when robots get hit
+    bool isDead;
+    bool dissapear;
+
+    void Awake()
+    {
+        //set up links to external stuff
+        enemyAudio = GetComponent<AudioSource>();
+        meshCollider = GetComponent<MeshCollider>();
+        currentHealth = startingHealth;
+    }
+
+    void Update()
+    {
+        // decide when to make the enemy model dissapear
+        if (dissapear)
+        {
+            //Not sure how we want to handle this yet
+        }
+    }
+
+    public void TakeDamage(int amount, Vector3 hitPoint)
+    {
+        
+        if (isDead)
+           
+            return;
+
+        enemyAudio.Play();
+
+        currentHealth -= amount;
+
+        //hitParticles.transform.position = hitPoint;
+
+        //hitParticles.Play();
+
+        if (currentHealth <= 0)
+        {
+            Death();
+        }
+    }
+
+    void Death()
+    {
+        isDead = true;
+
+        meshCollider.isTrigger = true;
+
+        dissapear = true;
+
+        //destroys game object after 2 seconds may want to change this depending on how we want the enemies to dissapear.
+        Destroy(gameObject, 2f);
+    }
+}

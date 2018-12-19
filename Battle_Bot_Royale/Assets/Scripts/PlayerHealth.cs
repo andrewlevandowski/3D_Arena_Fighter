@@ -96,6 +96,7 @@ public class PlayerHealth : MonoBehaviour {
             GameSingleton.instance.playerDead = true;
             playerAudio0.clip = deathSound;
             GetComponent<FirstPersonController>().enabled = false;
+            anim.enabled = true;
             anim.SetTrigger(playerDeadHash);
             playerAudio0.Play();
             Cursor.lockState = CursorLockMode.None;
@@ -111,6 +112,8 @@ public class PlayerHealth : MonoBehaviour {
     {
         if(col.gameObject.tag == "Enemy")
             TakeDamage(1);
+        if(col.gameObject.tag == "Boss")
+            TakeDamage(20);
     }
 }
 

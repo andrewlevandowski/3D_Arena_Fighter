@@ -50,7 +50,13 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Update()
     {
-
+        if (GameSingleton.instance.enemyAmount == 0)
+        {
+            GetComponent<FirstPersonController>().enabled = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            playerMovement.enabled = false;
+        }
     }
 
     public void TakeDamage(int amount)

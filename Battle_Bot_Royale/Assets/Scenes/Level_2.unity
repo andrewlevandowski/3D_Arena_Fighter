@@ -207,6 +207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 936373942}
+  win: {fileID: 0}
+  lose: {fileID: 0}
   playerDead: 0
   enemyAmount: 1
 --- !u!4 &188580507

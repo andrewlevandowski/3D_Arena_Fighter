@@ -7,7 +7,8 @@ public class EnemyHealth : MonoBehaviour {
 
     public int startingHealth = 100;
     public int currentHealth;
-    public int scoreValue = 10;                 
+    public int scoreValue = 10;
+    public AudioClip weaponHit;
     public AudioClip deathClip;
 
     AudioSource enemyAudio;
@@ -33,12 +34,15 @@ public class EnemyHealth : MonoBehaviour {
         }
     }
 
-    public void TakeDamage(int amount, Vector3 hitPoint)
+    //took out "Vector3 hitPoint"
+    public void TakeDamage(int amount)
     {
         
         if (isDead)
            
             return;
+
+        enemyAudio.clip = weaponHit;
 
         enemyAudio.Play();
 
@@ -58,11 +62,19 @@ public class EnemyHealth : MonoBehaviour {
     {
         isDead = true;
 
-        meshCollider.isTrigger = true;
+        //meshCollider.isTrigger = true;
 
         dissapear = true;
 
         //destroys game object after 2 seconds may want to change this depending on how we want the enemies to dissapear.
         Destroy(gameObject, 2f);
+    }
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Weapon")
+        {
+            TakeDamage(25);
+            
+        }
     }
 }

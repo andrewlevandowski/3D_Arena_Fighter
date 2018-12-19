@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSingleton : MonoBehaviour {
+public class GameSingleton : MonoBehaviour
+{
 
     #region Singleton
 
@@ -18,12 +19,12 @@ public class GameSingleton : MonoBehaviour {
     //global scene variables
     public GameObject player;
     public GameObject win;
-    public  GameObject lose;
+    public GameObject lose;
 
     public void Iflose()
     {
 
-      lose.SetActive(true);
+        lose.SetActive(true);
     }
     public void Ifwin()
     {

@@ -74,9 +74,10 @@ public class EnemyHealth : MonoBehaviour {
         enemyAudio.clip = deathClip;
         enemyAudio.Play();
         GameSingleton.instance.enemyAmount--;
+        GameSingleton.instance.Ifwin();
         //meshCollider.isTrigger = true;
         navmesh.speed = 0;
-        GameSingleton.instance.Ifwin();
+        
 
         dissapear = true;
 

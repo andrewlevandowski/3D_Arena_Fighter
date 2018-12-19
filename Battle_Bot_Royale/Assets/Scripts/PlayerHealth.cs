@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -102,6 +102,8 @@ public class PlayerHealth : MonoBehaviour {
             Cursor.visible = true;
             playerMovement.enabled = false;
 
+            GameSingleton.instance.Iflose();
+
         }
     }
 
@@ -111,3 +113,4 @@ public class PlayerHealth : MonoBehaviour {
             TakeDamage(1);
     }
 }
+

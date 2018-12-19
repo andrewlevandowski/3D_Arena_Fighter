@@ -76,6 +76,7 @@ public class EnemyHealth : MonoBehaviour {
         GameSingleton.instance.enemyAmount--;
         //meshCollider.isTrigger = true;
         navmesh.speed = 0;
+        GameSingleton.instance.Ifwin();
 
         dissapear = true;
 

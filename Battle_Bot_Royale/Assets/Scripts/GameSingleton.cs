@@ -17,7 +17,22 @@ public class GameSingleton : MonoBehaviour {
 
     //global scene variables
     public GameObject player;
+    public GameObject win;
+    public  GameObject lose;
 
+    public void Iflose()
+    {
+
+      lose.SetActive(true);
+    }
+    public void Ifwin()
+    {
+        if (enemyAmount == 0)
+        {
+            win.SetActive(true);
+
+        }
+    }
 
     public bool playerDead = false;
     public int enemyAmount;

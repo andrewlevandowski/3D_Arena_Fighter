@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 //outline taken from: "https://unity3d.com/learn/tutorials/projects/survival-shooter/harming-enemies?playlist=17144"
 public class EnemyHealth : MonoBehaviour {
@@ -11,6 +12,12 @@ public class EnemyHealth : MonoBehaviour {
     public AudioClip weaponHit;
     public AudioClip deathClip;
 
+    Animator anim;
+
+
+    int deadHash = Animator.StringToHash("isDead");
+
+    NavMeshAgent navmesh;
     AudioSource enemyAudio;
     MeshCollider meshCollider;
     ParticleSystem hitParticles;        //if we want to make an animation when robots get hit
@@ -22,7 +29,9 @@ public class EnemyHealth : MonoBehaviour {
         //set up links to external stuff
         enemyAudio = GetComponent<AudioSource>();
         meshCollider = GetComponent<MeshCollider>();
+        navmesh = GetComponent<NavMeshAgent>();
         currentHealth = startingHealth;
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -61,8 +70,12 @@ public class EnemyHealth : MonoBehaviour {
     void Death()
     {
         isDead = true;
-
+        anim.SetTrigger(deadHash);
+        enemyAudio.clip = deathClip;
+        enemyAudio.Play();
+        GameSingleton.instance.enemyAmount--;
         //meshCollider.isTrigger = true;
+        navmesh.speed = 0;
 
         dissapear = true;
 

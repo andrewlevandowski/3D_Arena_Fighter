@@ -9,15 +9,22 @@ public class EnemyController : MonoBehaviour {
 
     public float lookRadius = 10f;
 
+    public bool justAttacked = false;
 
     Transform target;
     NavMeshAgent agent;
+    Animator anim;
 
-	// Use this for initialization
-	void Start () {
+    
+    int attackHash = Animator.StringToHash("Attack1");
+    int walkHash = Animator.StringToHash("StartWalk");
+
+    // Use this for initialization
+    void Start () {
         target = PlayerFinder.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
-	}
+        anim = GetComponentInChildren<Animator>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,10 +34,15 @@ public class EnemyController : MonoBehaviour {
         {
             agent.SetDestination(target.position);
 
-            if (distance <= agent.stoppingDistance)
+            if (distance <= 2.8f)
             {
-                //attack
                 FaceTarget();
+                Attack();
+            } else 
+            {
+                anim.SetTrigger(walkHash);
+                justAttacked = false;
+
             }
         }
 	}
@@ -42,9 +54,12 @@ public class EnemyController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
-    void OnDrawGizmosSElected()
+
+    void Attack()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lookRadius);
+
+        anim.SetTrigger(attackHash);
+        justAttacked = true;
     }
+
 }
